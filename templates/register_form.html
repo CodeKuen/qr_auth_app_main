@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Complete Registration</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Welcome! Please Register</h2>
+    <form action="/submit" method="POST">
+      <input type="hidden" name="code" value="{{ code }}">
+      <input type="text" name="name" placeholder="Full Name" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <button type="submit">Register</button>
+    </form>
+  </div>
+</body>
+</html>
