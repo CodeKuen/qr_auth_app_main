@@ -3,9 +3,13 @@
 <head>
   <title>Admin Dashboard</title>
   <link rel="stylesheet" href="/static/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="admin_container">
+    <img src="{{ url_for('static', filename='ceaa_logo.png') }}" alt="Logo" class="logo">
     <h2>Admin Panel</h2>
 
     <!-- Stats Summary -->
@@ -18,7 +22,7 @@
 
     <!-- Generate Codes -->
     <form method="POST">
-      <button type="submit" name="generate_code" value="1">Generate 1 New Code</button>
+      <button type="submit" name="generate_code" value="1" class="button_generate">Generate 1 New Code</button>
     </form>
 
     {% if codes %}
@@ -32,10 +36,10 @@
 
     <!-- Filter Auth Codes -->
     <form method="GET" action="{{ url_for('admin') }}">
-      <input type="text" name="search_code" placeholder="Search code" value="{{ request.args.get('search_code', '') }}">
+      <input type="text" class="search_bar" name="search_code" placeholder="Search code" value="{{ request.args.get('search_code', '') }}">
       <input type="hidden" name="search_reg" value="{{ request.args.get('search_reg', '') }}">
       <input type="hidden" name="reg_page" value="{{ regs_paginated.page }}">
-      <button type="submit">🔍 Search</button>
+      <button type="submit"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
     </form>
 
     <!-- Auth Codes Table -->
@@ -56,17 +60,17 @@
         <td>{{ code.expires_at.strftime("%Y-%m-%d %H:%M:%S") }}</td>
         <td>
           <form method="POST" action="{{ url_for('delete_code', code_id=code.id) }}" style="display:inline;">
-            <button type="submit">🗑️</button>
+            <button type="submit" class="button_trash"><i class="fa-solid fa-trash-can"></i></button>
           </form>
 
           {% if code.used %}
           <form method="POST" action="{{ url_for('reset_code', code_id=code.id) }}" style="display:inline;">
-            <button type="submit" onclick="return confirm('Reset this code to unused?')">♻️</button>
+            <button type="submit" class="button_recycle" onclick="return confirm('Reset this code to unused?')"><i class="fa-solid fa-recycle"></i></button>
           </form>
           {% endif %}
 
           <form method="POST" action="{{ url_for('extend_code', code_id=code.id) }}" style="display:inline;">
-            <button type="submit">⏳</button>
+            <button type="submit" class="button_extend"><i class="fa-solid fa-hourglass"></i></button>
           </form>
         </td>
       </tr>
@@ -76,11 +80,11 @@
     <!-- Pagination for Auth Codes -->
     <div class="pagination">
       {% if codes_paginated.has_prev %}
-        <a href="{{ url_for('admin', code_page=codes_paginated.prev_num, reg_page=regs_paginated.page, search_code=request.args.get('search_code', ''), search_reg=request.args.get('search_reg', '')) }}">⬅ Prev Codes</a>
+        <a href="{{ url_for('admin', code_page=codes_paginated.prev_num, reg_page=regs_paginated.page, search_code=request.args.get('search_code', ''), search_reg=request.args.get('search_reg', '')) }}"><i class="fa-solid fa-arrow-left"></i> Prev Codes</a>
       {% endif %}
       Page {{ codes_paginated.page }} of {{ codes_paginated.pages }}
       {% if codes_paginated.has_next %}
-        <a href="{{ url_for('admin', code_page=codes_paginated.next_num, reg_page=regs_paginated.page, search_code=request.args.get('search_code', ''), search_reg=request.args.get('search_reg', '')) }}">Next Codes ➡</a>
+        <a href="{{ url_for('admin', code_page=codes_paginated.next_num, reg_page=regs_paginated.page, search_code=request.args.get('search_code', ''), search_reg=request.args.get('search_reg', '')) }}">Next Codes <i class="fa-solid fa-arrow-right"></i></a>
       {% endif %}
     </div>
 
@@ -88,10 +92,10 @@
 
     <!-- Filter Registrations -->
     <form method="GET" action="{{ url_for('admin') }}">
-      <input type="text" name="search_reg" placeholder="Search name or email" value="{{ request.args.get('search_reg', '') }}">
+      <input type="text" class="search_bar" name="search_reg" placeholder="Search name or email" value="{{ request.args.get('search_reg', '') }}">
       <input type="hidden" name="search_code" value="{{ request.args.get('search_code', '') }}">
       <input type="hidden" name="code_page" value="{{ codes_paginated.page }}">
-      <button type="submit">🔍 Search</button>
+      <button type="submit"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
     </form>
 
     <!-- Registrations Table -->
@@ -100,6 +104,8 @@
       <tr>
         <th>ID</th>
         <th>Name</th>
+        <th>Student Number</th>
+        <th>Department</th>
         <th>Email</th>
         <th>Code</th>
       </tr>
@@ -107,6 +113,8 @@
       <tr>
         <td>{{ reg.id }}</td>
         <td>{{ reg.name }}</td>
+        <td>{{ reg.student_number }}</td>
+        <td>{{ reg.department }}</td>
         <td>{{ reg.email }}</td>
         <td>{{ reg.code }}</td>
       </tr>
@@ -116,23 +124,23 @@
     <!-- Pagination for Registrations -->
     <div class="pagination">
       {% if regs_paginated.has_prev %}
-        <a href="{{ url_for('admin', reg_page=regs_paginated.prev_num, code_page=codes_paginated.page, search_code=request.args.get('search_code', ''), search_reg=request.args.get('search_reg', '')) }}">⬅ Prev Registrations</a>
+        <a href="{{ url_for('admin', reg_page=regs_paginated.prev_num, code_page=codes_paginated.page, search_code=request.args.get('search_code', ''), search_reg=request.args.get('search_reg', '')) }}"><i class="fa-solid fa-arrow-left"></i> Prev Registrations</a>
       {% endif %}
       Page {{ regs_paginated.page }} of {{ regs_paginated.pages }}
       {% if regs_paginated.has_next %}
-        <a href="{{ url_for('admin', reg_page=regs_paginated.next_num, code_page=codes_paginated.page, search_code=request.args.get('search_code', ''), search_reg=request.args.get('search_reg', '')) }}">Next Registrations ➡</a>
+        <a href="{{ url_for('admin', reg_page=regs_paginated.next_num, code_page=codes_paginated.page, search_code=request.args.get('search_code', ''), search_reg=request.args.get('search_reg', '')) }}">Next Registrations <i class="fa-solid fa-arrow-right"></i></a>
       {% endif %}
     </div>
 
     <br><br>
 
     <!-- Export Links -->
-    <a href="{{ url_for('export_codes') }}">📁 Export Auth Codes to CSV</a>
+    <a href="{{ url_for('export_codes') }}"><i class="fa-solid fa-folder-open"></i> Export Auth Codes to CSV</a>
     &nbsp;|&nbsp;
-    <a href="{{ url_for('export_registrations') }}">📁 Export Registrations to CSV</a>
+    <a href="{{ url_for('export_registrations') }}"><i class="fa-solid fa-folder-open"></i> Export Registrations to CSV</a>
 
     <br><br>
-    <p><a href="/logout">🔓 Logout</a></p>
+    <p><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></p>
   </div>
 </body>
 </html>

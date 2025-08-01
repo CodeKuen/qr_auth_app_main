@@ -1,12 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Success</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Successful</title>
   <link rel="stylesheet" href="/static/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
-<body>
-  <div class="container">
-    <h2>Thank you, {{ name }}! You are registered.</h2>
+<body class="success-page">
+
+  {% set logos = {
+    'Civil Engineering': 'civil.png',
+    'Mechanical Engineering': 'mechanical.png',
+    'Electrical Engineering': 'electrical.png',
+    'Computer Engineering': 'computer.png',
+    'Industrial Engineering': 'industrial.png',
+    'Electronics Engineering': 'electronics.png',
+    'Architecture': 'architecture.png',
+    'Aviation': 'aviation.png'
+  } %}
+
+  <div class="success-container">
+    <img 
+      src="{{ url_for('static', filename='images/' + logos.get(department, 'ceaa_logo.png')) }}" 
+      alt="Department Logo" 
+      class="logo {% if department == 'Aviation' %}aviation{% endif %}">
+    
+    <h2>Registration Successful!</h2>
+    <p>Thank you for registering. Your information has been recorded.</p>
   </div>
+
 </body>
 </html>

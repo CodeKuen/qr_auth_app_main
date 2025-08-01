@@ -1,60 +1,132 @@
+/* === BACKGROUND & ANIMATION === */
 body {
-	background: linear-gradient(-45deg, #3B060A, #8A0000, #C83F12, #FFF287);
-	background-size: 1000% 1000%;
-	animation: gradient 15s ease infinite;
-	height: 100vh;
+  background: linear-gradient(-45deg, #3B060A, #8A0000, #C83F12, #FFF287);
+  background-size: 1000% 1000%;
+  animation: gradient 15s ease infinite;
+  height: 100vh;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
 }
 
 @keyframes gradient {
-	0% {
-		background-position: 50% 0%;
-	}
-	50% {
-		background-position: 50% 50%;
-	}
-	100% {
-		background-position: 50% 0%;
-	}
+  0% { background-position: 50% 0%; }
+  50% { background-position: 50% 50%; }
+  100% { background-position: 50% 0%; }
 }
 
+/* === SUCCESS PAGE SPECIFIC === */
+body.success-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Inter', sans-serif;
+}
+
+/* === SHARED CONTAINERS === */
+.container,
 .admin_container {
-  width: 90%;
-  max-width: 800px;
-  margin: 40px auto;
-  background: white;
-  padding: 20px;
-  background-color: rgba(0, 0, 0, 0.7); /* semi-transparent dark overlay */
-  border: 2px solid #FFD700;
-  border-radius: 8px;
-  color: #FFF287;
-  box-shadow: 0 0 20px rgba(200, 63, 18, 0.5);
-  font-family: sans-serif;
-  font-size: 1.2rem;
-}
-
-.container {
   width: 90%;
   max-width: 400px;
   margin: 40px auto;
-  background: white;
   padding: 20px;
-  background-color: rgba(0, 0, 0, 0.7); /* semi-transparent dark overlay */
+  background-color: rgba(0, 0, 0, 0.7);
   border: 2px solid #FFD700;
   border-radius: 8px;
   color: #FFF287;
   box-shadow: 0 0 20px rgba(200, 63, 18, 0.5);
-  font-family: sans-serif;
-  font-size: 1.2rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
 }
+
+.admin_container {
+  max-width: 800px;
+}
+
+.success-container {
+  background-color: #3B060A;
+  padding: 30px 40px;
+  border: 2px solid #FFD700;
+  border-radius: 10px;
+  color: #FFF287;
+  text-align: center;
+  font-size: 1.4rem;
+}
+
+/* === FORM STYLES === */
+.form-group {
+  position: relative;
+  margin: 20px 0;
+  overflow: visible;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 16px;
+  color: #FFF287;
+  background-color: transparent;
+  border: 2px solid #FFD700;
+  border-radius: 30px;
+  box-sizing: border-box;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
 input[type="text"], input[type="email"] {
   width: 100%;
   padding: 10px;
   margin: 8px 0;
   box-sizing: border-box;
 }
-         
-button {background-image: linear-gradient(to right, #c21500 0%, #ffc500  51%, #c21500  100%)}
 
+.search_bar {
+  border-radius: 10px;
+}
+
+.form-group select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding-right: 40px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='292.4' height='292.4'%3E%3Cpath fill='%23FFF287' d='M287 69.4c5.3-5.3 5.3-13.8 0-19.1l-16.9-16.9c-5.3-5.3-13.8-5.3-19.1 0L146.2 138.2 41.4 33.4c-5.3-5.3-13.8-5.3-19.1 0L5.4 50.3c-5.3 5.3-5.3 13.8 0 19.1l140 140c5.3 5.3 13.8 5.3 19.1 0l122.5-122.5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 12px;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  background-color: #FFF287;
+  color: #3B060A;
+  border-color: #C83F12;
+}
+
+.form-group label {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #FFD700;
+  font-size: 16px;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus + label,
+.form-group input:valid + label,
+.form-group select:focus + label,
+.form-group select:valid + label {
+  top: -12px;
+  left: 10px;
+  padding: 0 5px;
+  font-size: 12px;
+  color: #FFF;
+  font-style: italic;
+  transform: none;
+}
+
+/* === BUTTON STYLES === */
 button {
   margin: auto;
   padding: 15px 45px;
@@ -65,13 +137,32 @@ button {
   color: white;            
   border-radius: 10px;
   display: block;
+  background-image: linear-gradient(to right, #c21500 0%, #ffc500 51%, #c21500 100%);
+}
+
+.button_generate {
+  background-image: linear-gradient(to right, #232526 0%, #414345  51%, #232526  100%);
+}
+
+.button_trash {
+  background-image: linear-gradient(to right, #EB3349 0%, #F45C43  51%, #EB3349  100%)
+}
+
+.button_recycle {
+  background-image: linear-gradient(to right, #1D976C 0%, #93F9B9  51%, #1D976C  100%);
+}
+
+.button_extend {
+  background-image: linear-gradient(to right, #00C6FF 0%, #0072FF 51%, #00C6FF 100%);
 }
 
 button:hover {
-  background-position: right center; /* change the direction of the change here */
+  background-position: right center;
   color: #fff;
   text-decoration: none;
 }
+
+/* === ALERT BOX === */
 .alert {
   background-color: #ffdddd;
   padding: 10px;
@@ -79,8 +170,19 @@ button:hover {
   margin-bottom: 15px;
 }
 
-.csv-export {
-  margin-top: 30px;
+/* === ADMIN TABLE === */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  word-wrap: break-word;
 }
 
 a.btn {
@@ -97,21 +199,7 @@ a.btn:hover {
   background-color: #0056b3;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-  font-size: 14px;
-}
-
-th, td {
-  padding: 8px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-  word-wrap: break-word;
-}
-
-/* Make tables scrollable on smaller screens */
+/* === RESPONSIVE TABLE === */
 @media screen and (max-width: 600px) {
   table, thead, tbody, th, td, tr {
     display: block;
@@ -141,4 +229,81 @@ th, td {
     text-align: left;
     color: #555;
   }
+}
+
+/* === FORM RESPONSIVENESS === */
+@media (max-width: 480px) {
+  .container, .admin_container {
+    padding: 15px 10px;
+    font-size: 1rem;
+  }
+
+  .form-group input,
+  .form-group select {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  .form-group label {
+    font-size: 14px;
+  }
+
+  .form-group input:focus + label,
+  .form-group input:valid + label,
+  .form-group select:focus + label,
+  .form-group select:valid + label {
+    font-size: 10px;
+  }
+
+  button {
+    padding: 12px 25px;
+    font-size: 14px;
+  }
+
+  .success-container {
+    padding: 20px;
+    font-size: 1.2rem;
+  }
+}
+
+/* Logo styling */
+.logo {
+  width: 120px;         /* or any consistent size */
+  height: 120px;
+  object-fit: contain;  /* maintains aspect ratio without cropping */
+  display: block;
+  margin: 0 auto 20px;
+  animation: pulseGlow 2s infinite; /* keep the glow if you're using it */
+}
+
+.logo.aviation {
+  width: 250px; /* wider for aviation */
+}
+
+@keyframes pulseGlow {
+  0% {
+    filter: drop-shadow(0 0 8px #FFD700);
+  }
+  50% {
+    filter: drop-shadow(0 0 20px #FFD700);
+  }
+  100% {
+    filter: drop-shadow(0 0 8px #FFD700);
+  }
+}
+
+.alert {
+  background-color: #fff3cd;
+  border: 1px solid #ffecb5;
+  padding: 10px 15px;
+  margin: 15px 0;
+  border-radius: 5px;
+  color: #664d03;
+  font-weight: 500;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to   { opacity: 1; transform: translateY(0); }
 }

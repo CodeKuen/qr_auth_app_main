@@ -3,16 +3,48 @@
 <head>
   <title>Complete Registration</title>
   <link rel="stylesheet" href="/static/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="container">
+    <img id="department-logo" src="{{ url_for('static', filename='ceaa_logo.png') }}" alt="Logo" class="logo">
     <h2>Welcome! Please Register</h2>
     <form action="/submit" method="POST">
       <input type="hidden" name="code" value="{{ code }}">
-      <input type="text" name="name" placeholder="Full Name" required>
-      <input type="email" name="email" placeholder="Email" required>
+
+      <div class="form-group">
+        <input type="text" name="name" id="name" required>
+        <label for="name">Full Name</label>
+      </div>
+
+      <div class="form-group">
+        <input type="text" name="student_number" id="student_number" required>
+        <label for="student_number">Student Number</label>
+      </div>
+
+      <div class="form-group">
+        <select name="department" id="department" required onchange="updateLogo()">
+          <option value="" disabled selected>Select your department</option>
+          <option value="Civil Engineering">Civil Engineering</option>
+          <option value="Mechanical Engineering">Mechanical Engineering</option>
+          <option value="Electrical Engineering">Electrical Engineering</option>
+          <option value="Computer Engineering">Computer Engineering</option>
+          <option value="Industrial Engineering">Industrial Engineering</option>
+          <option value="Electronics Engineering">Electronics Engineering</option>
+          <option value="Architecture">Architecture</option>
+          <option value="Aviation">Aviation</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <input type="email" name="email" id="email" required>
+        <label for="email">Email</label>
+      </div>
+
       <button type="submit">Register</button>
     </form>
   </div>
+  <script src="/static/script.js"></script>
 </body>
 </html>

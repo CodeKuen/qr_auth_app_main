@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: flask-registration
+    env: python
+    buildCommand: ""
+    startCommand: gunicorn app:app

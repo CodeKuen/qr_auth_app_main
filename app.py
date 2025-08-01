@@ -22,8 +22,10 @@ class AuthCode(db.Model):
 class Registration(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
+    student_number = db.Column(db.String(20), nullable=False)
     email = db.Column(db.String(100), nullable=False)
     code = db.Column(db.String(10), nullable=False)
+    department = db.Column(db.String(100), nullable=False)
 
 def generate_code(length=6):
     while True:
@@ -61,17 +63,28 @@ def register():
 @app.route('/submit', methods=['POST'])
 def submit():
     name = request.form['name']
+    student_number = request.form['student_number']
     email = request.form['email']
     code = request.form['code']
+    department = request.form['department']
 
     # Check for duplicate registration
     if Registration.query.filter_by(email=email).first():
         flash('This email has already been registered.')
         return redirect(url_for('register'))
 
-    db.session.add(Registration(name=name, email=email, code=code))
+    db.session.add(Registration(
+        name=name,
+        student_number=student_number,
+        email=email,
+        code=code,
+        department=department
+    ))
+
     db.session.commit()
-    return render_template('success.html', name=name)
+
+    # Pass department to success page for logo
+    return render_template('success.html', name=name, department=department)
 
 @app.route('/admin-login', methods=['GET', 'POST'])
 def admin_login():
@@ -186,7 +199,7 @@ def export_codes():
 
     output = io.StringIO()
     writer = csv.writer(output)
-    writer.writerow(['ID', 'Code', 'Used', 'Expires At'])
+    writer.writerow(['Entry Number', 'Code', 'Used', 'Expires At'])
 
     codes = AuthCode.query.order_by(AuthCode.id).all()
     for code in codes:
@@ -203,12 +216,12 @@ def export_registrations():
 
     output = io.StringIO()
     writer = csv.writer(output)
-    writer.writerow(['ID', 'Name', 'Email', 'Code'])
+    writer.writerow(['Entry Number', 'Name', 'Student Number', 'Department', 'Email', 'Code'])
 
     recent_regs = Registration.query.order_by(Registration.id.desc()).limit(10).all()
 
     for reg in recent_regs:
-        writer.writerow([reg.id, reg.name, reg.email, reg.code])
+        writer.writerow([reg.id, reg.name, reg.student_number, reg.department, reg.email, reg.code])
 
     output.seek(0)
     timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
