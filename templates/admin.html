@@ -5,7 +5,7 @@
   <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-  <div class="container">
+  <div class="admin_container">
     <h2>Admin Panel</h2>
 
     <!-- Stats Summary -->
@@ -56,7 +56,7 @@
         <td>{{ code.expires_at.strftime("%Y-%m-%d %H:%M:%S") }}</td>
         <td>
           <form method="POST" action="{{ url_for('delete_code', code_id=code.id) }}" style="display:inline;">
-            <button type="submit" onclick="return confirm('Delete this code?')">🗑️</button>
+            <button type="submit">🗑️</button>
           </form>
 
           {% if code.used %}
@@ -66,7 +66,7 @@
           {% endif %}
 
           <form method="POST" action="{{ url_for('extend_code', code_id=code.id) }}" style="display:inline;">
-            <button type="submit" onclick="return confirm('Extend this code\'s expiry?')">⏳</button>
+            <button type="submit">⏳</button>
           </form>
         </td>
       </tr>

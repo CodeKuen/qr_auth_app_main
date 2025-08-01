@@ -93,7 +93,7 @@ def admin():
     if request.method == 'POST' and 'generate_code' in request.form:
         purge_expired_codes()
         code = generate_code()
-        auth_code = AuthCode(code=code, expires_at=datetime.now() + timedelta(minutes=30))
+        auth_code = AuthCode(code=code, expires_at=datetime.now() + timedelta(minutes=5))
         db.session.add(auth_code)
         db.session.commit()
         session['new_code'] = code

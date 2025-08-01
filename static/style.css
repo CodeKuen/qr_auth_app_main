@@ -1,17 +1,50 @@
 body {
-  font-family: Arial, sans-serif;
-  background: #f4f4f4;
-  margin: 0;
-  padding: 0;
+	background: linear-gradient(-45deg, #3B060A, #8A0000, #C83F12, #FFF287);
+	background-size: 1000% 1000%;
+	animation: gradient 15s ease infinite;
+	height: 100vh;
 }
+
+@keyframes gradient {
+	0% {
+		background-position: 50% 0%;
+	}
+	50% {
+		background-position: 50% 50%;
+	}
+	100% {
+		background-position: 50% 0%;
+	}
+}
+
+.admin_container {
+  width: 90%;
+  max-width: 800px;
+  margin: 40px auto;
+  background: white;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.7); /* semi-transparent dark overlay */
+  border: 2px solid #FFD700;
+  border-radius: 8px;
+  color: #FFF287;
+  box-shadow: 0 0 20px rgba(200, 63, 18, 0.5);
+  font-family: sans-serif;
+  font-size: 1.2rem;
+}
+
 .container {
   width: 90%;
   max-width: 400px;
   margin: 40px auto;
   background: white;
   padding: 20px;
+  background-color: rgba(0, 0, 0, 0.7); /* semi-transparent dark overlay */
+  border: 2px solid #FFD700;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  color: #FFF287;
+  box-shadow: 0 0 20px rgba(200, 63, 18, 0.5);
+  font-family: sans-serif;
+  font-size: 1.2rem;
 }
 input[type="text"], input[type="email"] {
   width: 100%;
@@ -19,13 +52,25 @@ input[type="text"], input[type="email"] {
   margin: 8px 0;
   box-sizing: border-box;
 }
+         
+button {background-image: linear-gradient(to right, #c21500 0%, #ffc500  51%, #c21500  100%)}
+
 button {
-  width: 100%;
-  padding: 10px;
-  background-color: #2196F3;
-  color: white;
-  border: none;
-  border-radius: 4px;
+  margin: auto;
+  padding: 15px 45px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;            
+  border-radius: 10px;
+  display: block;
+}
+
+button:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
 }
 .alert {
   background-color: #ffdddd;
