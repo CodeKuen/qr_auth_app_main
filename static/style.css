@@ -1,17 +1,24 @@
 /* === BACKGROUND & ANIMATION === */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Inter', sans-serif;
+}
+
 body {
   background: linear-gradient(-45deg, #3B060A, #8A0000, #C83F12, #FFF287);
   background-size: 1000% 1000%;
   animation: gradient 15s ease infinite;
-  height: 100vh;
-  margin: 0;
-  font-family: 'Inter', sans-serif;
+  flex: 1;
 }
 
 @keyframes gradient {
-  0% { background-position: 50% 0%; }
-  50% { background-position: 50% 50%; }
-  100% { background-position: 50% 0%; }
+  0% { background-position: 0% 50%; }
+  50% { background-position:100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* === SUCCESS PAGE SPECIFIC === */
@@ -36,10 +43,12 @@ body.success-page {
   box-shadow: 0 0 20px rgba(200, 63, 18, 0.5);
   font-family: 'Inter', sans-serif;
   font-size: 1.1rem;
+  flex: 1;
 }
 
 .admin_container {
   max-width: 800px;
+  flex: 1;
 }
 
 .success-container {
@@ -50,6 +59,7 @@ body.success-page {
   color: #FFF287;
   text-align: center;
   font-size: 1.4rem;
+  flex: 1;
 }
 
 /* === FORM STYLES === */
@@ -306,4 +316,13 @@ a.btn:hover {
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-5px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+.footer {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #888;
+  padding: 20px 0;
+  margin-top: 40px;
+  border-top: 1px solid #e0e0e0;
 }
