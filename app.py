@@ -106,7 +106,7 @@ def admin():
     if request.method == 'POST' and 'generate_code' in request.form:
         purge_expired_codes()
         code = generate_code()
-        auth_code = AuthCode(code=code, expires_at=datetime.now() + timedelta(minutes=5))
+        auth_code = AuthCode(code=code, expires_at=datetime.now() + timedelta(minutes=2))
         db.session.add(auth_code)
         db.session.commit()
         session['new_code'] = code
@@ -182,9 +182,9 @@ def extend_code(code_id):
     if not session.get('admin'):
         return redirect(url_for('admin_login'))
     code = AuthCode.query.get_or_404(code_id)
-    code.expires_at += timedelta(minutes=30)
+    code.expires_at += timedelta(minutes=5)
     db.session.commit()
-    flash('Code expiry extended by 30 minutes.')
+    flash('Code expiry extended by 5 minutes.')
     return redirect(url_for('admin'))
 
 @app.route('/logout')
